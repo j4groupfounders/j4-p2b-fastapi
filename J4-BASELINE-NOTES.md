@@ -1,0 +1,1 @@
+Infrastructure repair: pin virtualenv 20.16.5 and setuptools 65.6.3 alongside upstream-era Poetry 1.1.15, avoiding packaging API incompatibility in newer bootstrap tools. Original project dependency lock and tests unchanged.
