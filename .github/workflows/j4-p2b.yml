@@ -1,0 +1,50 @@
+name: J4 P2 batch 2 bounded verification
+on:
+  push:
+    branches: ['j4/p2b-*']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      DATABASE_URL: postgresql://postgres:practice@localhost/postgres
+      SECRET_KEY: practice-not-a-real-key
+      APP_ENV: test
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: practice
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - run: pip install poetry==1.1.15
+      - run: poetry config virtualenvs.create false && poetry install --no-interaction
+      - run: alembic upgrade head
+      - name: Project tests
+        run: python -m pytest -n 2 --junitxml=project-tests.xml
+      - name: Boot and characterize
+        run: |
+          uvicorn app.main:app --host 127.0.0.1 --port 3000 > boot.log 2>&1 &
+          python j4_probe.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence
+          path: |
+            surface.actual.json
+            project-tests.*
+            boot.log
+            seed-results.json
+            poetry.lock
+            composer.lock
+            yarn.lock
+          retention-days: 30
