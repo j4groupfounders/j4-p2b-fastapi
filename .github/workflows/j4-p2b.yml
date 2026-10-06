@@ -25,9 +25,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
-      - run: pip install poetry==1.1.15 virtualenv==20.16.5 setuptools==65.6.3
-      - run: poetry config virtualenvs.in-project true && poetry install --no-interaction
+          python-version: '3.11'
+      - run: pip install poetry==2.1.4
+      - run: poetry config virtualenvs.in-project true && poetry lock && poetry install --no-interaction --no-root
       - run: poetry run alembic upgrade head
       - name: Project tests
         run: poetry run python -m pytest -n 2 --junitxml=project-tests.xml
