@@ -1,0 +1,42 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/tags",
+    "status": 200,
+    "content_type": "application/json",
+    "sha256": "b35b1ec1c0c72c4bbd16bd9d6c2cbcac8224272cd7e6ecf504a78f2c7e989b2a",
+    "body": "{\"tags\":[]}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/articles",
+    "status": 200,
+    "content_type": "application/json",
+    "sha256": "e16a3d4e4f6788f0dfbcac33119bf66c17e4a5f59728e79d4c4f30ddfea7ea50",
+    "body": "{\"articles\":[],\"articlesCount\":0}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/user",
+    "status": 403,
+    "content_type": "application/json",
+    "sha256": "91c9ab616e61df414a0a197242cf1fd61977d7c9050395f7d02a64b832e64dae",
+    "body": "{\"errors\":[\"authentication required\"]}"
+  },
+  {
+    "method": "GET",
+    "path": "/j4-missing",
+    "status": 404,
+    "content_type": "application/json",
+    "sha256": "07e9846275f958877f646b890bebbbe3f5eae569aa52bb2641683a54789faaa8",
+    "body": "{\"errors\":[\"Not Found\"]}"
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/login",
+    "status": 422,
+    "content_type": "application/json",
+    "sha256": "46e12620fd7a9f6ffed57769b79e10552d5645f23f80eec35b60929157f534a2",
+    "body": "{\"errors\":[{\"loc\":[\"body\",\"user\"],\"msg\":\"field required\",\"type\":\"value_error.missing\"}]}"
+  }
+]
