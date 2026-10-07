@@ -27,7 +27,7 @@ class RWAPIKeyHeader(APIKeyHeader):
             return await super().__call__(request)
         except StarletteHTTPException as original_auth_exc:
             raise HTTPException(
-                status_code=original_auth_exc.status_code,
+                status_code=status.HTTP_403_FORBIDDEN,
                 detail=strings.AUTHENTICATION_REQUIRED,
             )
 
