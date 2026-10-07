@@ -1,7 +1,7 @@
-name: J4 P2 batch 2 bounded verification
+name: J4 P2 batch 3 bounded verification
 on:
   push:
-    branches: ['j4/p2b-*']
+    branches: ['j4/p2c-*']
 permissions:
   contents: read
 jobs:
