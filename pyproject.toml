@@ -52,6 +52,7 @@ testpaths = "tests"
 filterwarnings = [
   "error",
   "ignore:module 'sre_constants' is deprecated:DeprecationWarning",
+  "ignore:pkg_resources is deprecated as an API:DeprecationWarning",
 ]
 addopts = '''
   --strict-markers
