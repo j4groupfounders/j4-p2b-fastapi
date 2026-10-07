@@ -1,7 +1,10 @@
 import pytest
 from fastapi import FastAPI
-from httpx import AsyncClient
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+from httpx import AsyncClient, ASGITransport
+try:
+    from starlette.status import HTTP_422_UNPROCESSABLE_CONTENT as HTTP_422_UNPROCESSABLE_ENTITY
+except ImportError:  # pragma: no cover - older starlette only has the old name
+    from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 pytestmark = pytest.mark.asyncio
 
@@ -11,7 +14,7 @@ async def test_frw_validation_error_format(app: FastAPI):
     def route_for_test(param: int) -> None:  # pragma: no cover
         pass
 
-    async with AsyncClient(base_url="http://testserver", app=app) as client:
+    async with AsyncClient(base_url="http://testserver", transport=ASGITransport(app=app)) as client:
         response = await client.get("/wrong_path/asd")
 
     assert response.status_code == HTTP_422_UNPROCESSABLE_ENTITY

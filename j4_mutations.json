@@ -20,7 +20,7 @@
   [
     "validation-status",
     "app/api/errors/validation_error.py",
-    "status_code=HTTP_422_UNPROCESSABLE_ENTITY",
+    "status_code=HTTP_422_UNPROCESSABLE_CONTENT",
     "status_code=200"
   ],
   [

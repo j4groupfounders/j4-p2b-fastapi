@@ -1,5 +1,9 @@
 import bcrypt
-from passlib.context import CryptContext
+import warnings
+
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", message="'crypt' is deprecated.*", category=DeprecationWarning)
+    from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

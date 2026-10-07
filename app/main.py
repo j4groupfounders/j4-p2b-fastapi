@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException
@@ -15,7 +17,15 @@ def get_application() -> FastAPI:
 
     settings.configure_logging()
 
-    application = FastAPI(**settings.fastapi_kwargs)
+    @asynccontextmanager
+    async def lifespan(application: FastAPI):
+        await create_start_app_handler(application, settings)()
+        try:
+            yield
+        finally:
+            await create_stop_app_handler(application)()
+
+    application = FastAPI(lifespan=lifespan, **settings.fastapi_kwargs)
 
     application.add_middleware(
         CORSMiddleware,
@@ -23,15 +33,6 @@ def get_application() -> FastAPI:
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
-    )
-
-    application.add_event_handler(
-        "startup",
-        create_start_app_handler(application, settings),
-    )
-    application.add_event_handler(
-        "shutdown",
-        create_stop_app_handler(application),
     )
 
     application.add_exception_handler(HTTPException, http_error_handler)
