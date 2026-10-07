@@ -79,7 +79,8 @@ async def test_user_can_not_delete_not_authored_comment(
         )
     )
 
-    assert forbidden_response.status_code == status.HTTP_403_FORBIDDEN
+    observed_status = forbidden_response.status_code
+    assert observed_status == status.HTTP_403_FORBIDDEN
 
 
 async def test_user_will_receive_error_for_not_existing_comment(

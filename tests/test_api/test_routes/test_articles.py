@@ -155,7 +155,8 @@ async def test_user_can_not_modify_article_that_is_not_authored_by_him(
         app.url_path_for(route_name, slug="test-slug"),
         json={"article": {"title": "Updated Title"}},
     )
-    assert response.status_code == status.HTTP_403_FORBIDDEN
+    observed_status = response.status_code
+    assert observed_status == status.HTTP_403_FORBIDDEN
 
 
 async def test_user_can_delete_his_article(

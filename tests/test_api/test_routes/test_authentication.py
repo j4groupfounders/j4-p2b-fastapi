@@ -16,7 +16,8 @@ async def test_unable_to_login_with_wrong_jwt_prefix(
         app.url_path_for("users:get-current-user"),
         headers={"Authorization": f"WrongPrefix {token}"},
     )
-    assert response.status_code == HTTP_403_FORBIDDEN
+    observed_status = response.status_code
+    assert observed_status == HTTP_403_FORBIDDEN
 
 
 async def test_unable_to_login_when_user_does_not_exist_any_more(
@@ -29,4 +30,5 @@ async def test_unable_to_login_when_user_does_not_exist_any_more(
         app.url_path_for("users:get-current-user"),
         headers={"Authorization": f"{authorization_prefix} {token}"},
     )
-    assert response.status_code == HTTP_403_FORBIDDEN
+    observed_status = response.status_code
+    assert observed_status == HTTP_403_FORBIDDEN
