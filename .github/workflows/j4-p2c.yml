@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install poetry==2.1.4
-      - run: poetry config virtualenvs.in-project true && poetry install --no-interaction --no-root
+      - run: poetry config virtualenvs.in-project true && poetry lock && poetry install --no-interaction --no-root
       - run: poetry run alembic upgrade head
       - name: Project tests
         run: poetry run python -m pytest -n 2 --junitxml=project-tests.xml
@@ -42,6 +42,7 @@ jobs:
           path: |
             surface.actual.json
             project-tests.*
+            coverage.xml
             boot.log
             seed-results.json
             seed-evidence/

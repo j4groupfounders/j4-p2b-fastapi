@@ -28,6 +28,7 @@ loguru = "^0.6.0"
 setuptools = "^75.0"
 
 [tool.poetry.dev-dependencies]
+coverage = "7.6.1"
 black = "^22.6.0"
 isort = "^5.10"
 autoflake = "^1.4"
