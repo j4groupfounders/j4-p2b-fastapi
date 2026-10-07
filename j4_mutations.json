@@ -1,0 +1,32 @@
+[
+  [
+    "tags-content",
+    "app/api/routes/tags.py",
+    "return TagsInList(tags=tags)",
+    "return TagsInList(tags=tags + ['j4-mutant'])"
+  ],
+  [
+    "article-count",
+    "app/api/routes/articles/articles_resource.py",
+    "articles_count=len(articles),",
+    "articles_count=len(articles) + 1,"
+  ],
+  [
+    "http-error-status",
+    "app/api/errors/http_error.py",
+    "status_code=exc.status_code",
+    "status_code=200"
+  ],
+  [
+    "validation-status",
+    "app/api/errors/validation_error.py",
+    "status_code=HTTP_422_UNPROCESSABLE_ENTITY",
+    "status_code=200"
+  ],
+  [
+    "auth-error-message",
+    "app/api/dependencies/authentication.py",
+    "detail=strings.AUTHENTICATION_REQUIRED",
+    "detail='j4-mutant-auth-message'"
+  ]
+]
