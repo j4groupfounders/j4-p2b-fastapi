@@ -1,7 +1,10 @@
 import pytest
 from fastapi import FastAPI
 from httpx import AsyncClient, ASGITransport
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+try:
+    from starlette.status import HTTP_422_UNPROCESSABLE_CONTENT as HTTP_422_UNPROCESSABLE_ENTITY
+except ImportError:  # pragma: no cover - older starlette only has the old name
+    from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 pytestmark = pytest.mark.asyncio
 

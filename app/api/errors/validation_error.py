@@ -6,7 +6,10 @@ from fastapi.openapi.utils import validation_error_response_definition
 from pydantic import ValidationError
 from starlette.requests import Request
 from starlette.responses import JSONResponse
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+try:
+    from starlette.status import HTTP_422_UNPROCESSABLE_CONTENT as HTTP_422_UNPROCESSABLE_ENTITY
+except ImportError:  # pragma: no cover - older starlette only has the old name
+    from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 
 async def http422_error_handler(
